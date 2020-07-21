@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -22,42 +20,11 @@ import TextField from '@material-ui/core/TextField';
       this.componentDidMount();
     }
     componentDidMount() {
-      // var x = new XMLHttpRequest();
-      // x.open('GET', 'http://localhost:8080/api/fibonacci/' + this.state.fibnumber);
-      // // I put "XMLHttpRequest" here, but you can use anything you want.
-      // x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      // x.onload = function() {
-      //     alert(x.responseText);
-      // };
-      // x.send();
-
-
-      // axios.get('http://localhost:8080/api/fibonacci/' + this.state.fibnumber, {
-      //   headers:{
-      //     'Content-Type': 'application/json',
-      //     'Access-Control-Allow-Origin': '*',
-      //   },
-      //   mode: 'no-cors',
-      // })
-      // .then(response => {
-      //   console.log('data' + response.data);
-      // })
-      // .catch(error => {
-      //   console.log(error);
-      // });
-
-      var url = 'https://cors-anywhere.herokuapp.com/http://localhost:8080/api/fibonacci/' + this.state.fibnumber;
-      fetch(url, {
-        method: 'GET',
-        headers:{
-          //'X-Requested-With': 'XMLHttpRequest',
-          'Access-Control-Allow-Origin': '*'
-        }
-        //mode: 'no-cors'
-      }).then(res => res.text())
+      var url = 'http://localhost:8080/api/fibonacci/' + this.state.fibnumber;
+      fetch(url)
+      .then(res => res.text())
       .then(response => 
         this.setState({output: response}))
-        //console.log('Success:', response))
       .catch(error => console.error('Error:', error));
     }
 
@@ -71,7 +38,6 @@ import TextField from '@material-ui/core/TextField';
           <p class="normal">
             Please enter an integer to generate your Fibonacci sequence
           </p>
-          {/* <input type="text" onChange={ this.handleChange } /> */}
           <form noValidate autoComplete="off">
             <TextField 
               id="fibsequence" 
@@ -85,14 +51,10 @@ import TextField from '@material-ui/core/TextField';
               onClick={this.handleClick}
             >Generate</Button>
           </form>
-        </header>
-        <body>
-          <p>
-              Your Fibonacci Sequence: 
-              <br />
+          <h4>
               {this.state.output}
-          </p>
-        </body>
+          </h4>
+        </header>
       </div>
     );
     }
